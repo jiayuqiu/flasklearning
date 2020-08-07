@@ -1,6 +1,8 @@
 #!flask/bin/python
 from flask import Flask, g, jsonify
 from flask_httpauth import HTTPTokenAuth
+from flask import Blueprint
+# from flask_zookeeper import FlaskZookeeperClient
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 import logging
@@ -20,6 +22,10 @@ app.register_blueprint(weather_clf, url_prefix='/weather_clf/')  # add weather c
 # add token conf
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{user}:{passwd}@{host}:{port}/{database}?charset=utf8"
 app.config['SECRET_KEY'] = 'top secret!'
+# app.config.from_object(BaseConfig)
+
+
+# set token
 token_serializer = Serializer(app.config['SECRET_KEY'], expires_in=3600)
 
 auth = HTTPTokenAuth('Bearer')
@@ -61,4 +67,4 @@ if __name__ == "__main__":
     handler.setLevel(logging.INFO)
     handler.setFormatter(formatter)
     app.logger.addHandler(handler)
-    app.run(host='0.0.0.0', port=8888, debug=True)
+    app.run(host='0.0.0.0', port=18888, debug=True)

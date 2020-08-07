@@ -1,0 +1,11 @@
+**/data/**
+
+**.log
+
+**.log.**
+
+.vscode/*
+
+**.pyc
+
+**/__pycache__/**
