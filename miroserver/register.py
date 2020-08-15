@@ -32,6 +32,7 @@ class Register(object):
         self.__zk.start()
 
         # register mircoservers
+        print(f"fpath = {fpath}")
         self.__zk.ensure_path(fpath)
         value = json.dumps(server_info)
         self.__zk.create(os.path.join(fpath, fname), value.encode(), sequence=True)
@@ -49,6 +50,7 @@ class Register(object):
         self.__zk.start()
 
         # register mircoservers
+        print(f"fpath = {fpath}")
         self.__zk.ensure_path(fpath)
         for _, server_info in enumerate(server_info_list):
             value = json.dumps(server_info)
@@ -61,7 +63,7 @@ def main():
     reg = Register(zk_host="192.168.7.239", zk_port=2181)
     reg.register_node(
         server_info={"host": "192.168.7.209", "port": 18888},
-        fpath="/alg/",
+        fpath="/services/alg",
         fname="weather_clf"
     )
     print("reg finish.")
